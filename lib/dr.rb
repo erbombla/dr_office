@@ -7,6 +7,10 @@ class Doctor
     @specialty = attributes[:specialty]
   end
 
+  def ==(another_doctor)
+    self.name == another_doctor.name && self.id == another_doctor.id
+  end
+
   def save
     result = DB.exec("INSERT INTO doctor_list (name, specialty) VALUES ('#{@name}', '#{@specialty}') RETURNING id;")
     @id = result.first.fetch('id').to_i
